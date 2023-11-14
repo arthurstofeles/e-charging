@@ -1,55 +1,30 @@
 <template>
   <div class="default">
     <v-navigation-drawer
-      class="grey darken-3 pa-5 sidebar"
+      class="pa-5 sidebar"
       dark
       width="400"
       height="100%"
       permanent
     >
-      <img src="@/assets/logo-branca.png" alt="" />
+      <img src="@/assets/logo_echarging.svg" alt="" width="200" />
 
       <v-list>
-        <v-list-item color="dark" :to="{ name: 'IdeiaListView' }" exact>
-          <v-list-item-icon>
-            <v-icon>mdi-lightbulb-on</v-icon>
-          </v-list-item-icon>
+        <v-list-item color="dark" :to="{ name: 'FaturasView' }" exact>
           <v-list-item-content>
-            <v-list-item-title>Ideias Sustentáveis</v-list-item-title>
+            <v-list-item-title>Faturas</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item :to="{ name: 'CollaboratorListView' }" exact color="dark">
-          <v-list-item-icon>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-icon>
+        <v-list-item color="dark" :to="{ name: 'MediasView' }" exact>
           <v-list-item-content>
-            <v-list-item-title>Autodiagnóstico de usuários</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item color="dark" :to="{ name: 'StatisticDiagnosticView' }" exact>
-          <v-list-item-icon>
-            <v-icon>mdi-chart-bar</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Estatística de usuários</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item color="dark" :to="{ name: 'StatisticIdeiaView' }" exact>
-          <v-list-item-icon>
-            <v-icon>mdi-chart-areaspline-variant</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Estatística de ideias</v-list-item-title>
+            <v-list-item-title>Médias de Consumo</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
 
       <v-btn text @click="logout"> sair </v-btn>
     </v-navigation-drawer>
-    <v-container fluid class="pa-0 blue-grey lighten-5">
+    <v-container fluid class="pa-0 view">
       <router-view />
     </v-container>
   </div>
@@ -73,6 +48,7 @@ export default {
   .sidebar {
     position: sticky;
     height: 100vh !important;
+    background-color: #1e345d;
     ::v-deep .v-navigation-drawer__content {
       display: flex !important;
       flex-direction: column;
@@ -82,6 +58,9 @@ export default {
         text-transform: uppercase;
       }
     }
+  }
+  .view {
+    background: #e2ede6;
   }
 }
 </style>
