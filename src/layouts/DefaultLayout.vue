@@ -7,7 +7,7 @@
       height="100%"
       permanent
     >
-      <img src="@/assets/logo_echarging.svg" alt="" width="200" />
+      <img src="@/assets/logo_echarging_branco.svg" alt="" width="200" />
 
       <v-list>
         <v-list-item color="dark" :to="{ name: 'FaturasView' }" exact>
@@ -17,7 +17,7 @@
         </v-list-item>
         <v-list-item color="dark" :to="{ name: 'MediasView' }" exact>
           <v-list-item-content>
-            <v-list-item-title>Médias de Consumo</v-list-item-title>
+            <v-list-item-title>Histórico de Consumo</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

@@ -6,32 +6,12 @@ export const login = async (payload) => {
   return data;
 };
 
-export const ideias = async () => {
-  const { data } = await apiInstance.get(ENDPOINTS.IDEIAS);
+export const installations = async () => {
+  const { data } = await apiInstance.get(ENDPOINTS.INSTALLATIONS);
   return data;
 };
 
-export const ideia = async (id) => {
-  const { data } = await apiInstance.get(ENDPOINTS.IDEIAS + id);
-  return data;
-};
-
-export const collaborators = async () => {
-  const { data } = await apiInstance.get(ENDPOINTS.USUARIOS);
-  return data;
-};
-
-export const collaborator = async (id) => {
-  const { data } = await apiInstance.get(ENDPOINTS.USUARIOS + id);
-  return data;
-};
-
-export const statisticIdeia = async () => {
-  const { data } = await apiInstance.get(ENDPOINTS.ESTATISTICAS_IDEIA);
-  return data;
-};
-
-export const statisticDiagnostic = async () => {
-  const { data } = await apiInstance.get(ENDPOINTS.ESTATISTICAS_USUARIO);
+export const faturas = async (id) => {
+  const { data } = await apiInstance.get(ENDPOINTS.FATURAS + '?installation=' + id);
   return data;
 };

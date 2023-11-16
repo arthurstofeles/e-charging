@@ -1,7 +1,22 @@
 <template>
   <div>
     <header class="pa-8 d-flex justify-space-between align-center">
-      <h1>Médias de Consumo</h1>
+      <h1>Histórico de Consumo</h1>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-select
+        v-if="installation"
+        :items="items"
+        outlined
+        dense
+        hide-details
+        label="Instalação"
+        item-text="name"
+        item-value="id"
+        v-model="installation"
+        @input="getFaturas"
+      ></v-select>
     </header>
     <div v-if="loading" class="d-flex pa-8 justify-center align-center">
       <v-progress-circular
@@ -23,10 +38,13 @@
         :height="height"
       />
     </section>
+    <AlertError :alertError="alertError" :messageError="messageError" />
   </div>
 </template>
 
 <script>
+import AlertError from "../components/custom/AlertError.vue";
+import { installations, faturas } from "@/utils/services.js";
 import { Bar } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
@@ -51,6 +69,7 @@ export default {
   name: "MediasView",
   components: {
     Bar,
+    AlertError
   },
   props: {
     chartId: {
@@ -84,35 +103,118 @@ export default {
   },
   data() {
     return {
+      alertError: false,
+      messageError: "Ocorreu um erro inesperado.",
       loading: false,
+      items: [],
+      installation: null,
+      faturas: [],
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
       },
       chartData: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
+        labels: [],
         datasets: [
           {
-            label: "Data One",
+            label: "Consumo Mensal - Kwh",
             backgroundColor: "rgb(39, 169, 82)",
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+            data: [],
           },
         ],
       },
     };
+  },
+  beforeCreate() {
+    if (this.$store.state.loggedIn === "deslogado") {
+      this.$router.push({ path: "/login" });
+    }
+  },
+  created() {
+    this.getInstallations();
+  },
+  methods: {
+    async getInstallations() {
+      this.loading = true;
+      try {
+        await installations().then((resp) => {
+          this.items = resp;
+          this.installation = this.items[0].id;
+          this.getFaturas();
+          this.loading = false;
+        });
+      } catch (err) {
+        this.alertError = true;
+        this.loading = false;
+        console.error(err);
+      }
+    },
+    async getFaturas() {
+      this.chartData.labels = []
+      this.chartData.datasets[0].data = []
+      this.loading = true;
+      try {
+        await faturas(this.installation).then((resp) => {
+          this.faturas = resp;
+          this.faturas.forEach(item => {
+            this.chartData.labels.push(this.getMes(item.due_date))
+            this.chartData.datasets[0].data.push(item.price)
+          })
+          this.loading = false;
+        });
+      } catch (err) {
+        this.alertError = true;
+        this.loading = false;
+        console.error(err);
+      }
+    },
+    getMes(data) {
+      var dataAtual = new Date(data);
+      dataAtual.setMonth(dataAtual.getMonth() - 1);
+      var nomeMes = this.obterNomeMes(dataAtual.getMonth());
+      return nomeMes;
+    },
+    obterNomeMes(numeroMes) {
+      var nomesMes = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+      ];
+      return nomesMes[numeroMes];
+    },
+    formataPreco(valor) {
+      const preco = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      return preco.format(valor);
+    },
+    formataData(dataString) {
+      var data = new Date(dataString);
+
+      var dia = data.getDate();
+      var mes = data.getMonth() + 1;
+      var ano = data.getFullYear();
+
+      var dataFormatada =
+        (dia < 10 ? "0" : "") +
+        dia +
+        "/" +
+        (mes < 10 ? "0" : "") +
+        mes +
+        "/" +
+        ano;
+      return dataFormatada;
+    },
   },
 };
 </script>

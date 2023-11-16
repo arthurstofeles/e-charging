@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="pa-4 form">
-      <img src="@/assets/logo_echarging.svg" alt="logo" />
+      <img src="@/assets/logo_echarging_branco.svg" alt="logo" />
       <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
         <v-text-field
           class="pb-6"
@@ -64,8 +64,8 @@ export default {
     valid: true,
     error: false,
     form: {
-      username: "",
-      password: "",
+      username: "teste@teste.com",
+      password: "senha1234",
     },
     showPassword: false,
     loading: false,
