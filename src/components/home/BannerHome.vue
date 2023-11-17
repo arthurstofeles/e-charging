@@ -7,8 +7,20 @@
           Descubra a revolução da mobilidade elétrica com nossa tecnologia de
           carregamento por indução sem fios
         </h3>
-        <v-btn x-large rounded class="mt-6 px-10" dark color="#27A952"
-          >Entrar em contato</v-btn
+        <a
+          class="mt-6 px-10 v-btn v-btn--is-elevated v-btn--has-bg v-btn--rounded theme--dark v-size--x-large"
+          style="
+            background-color: rgb(39, 169, 82);
+            border-color: rgb(39, 169, 82);
+          "
+          href="#contato"
+          v-smooth-scroll="{
+            duration: 1000,
+            updateHistory: false,
+            offset: -70,
+          }"
+          link
+          >Entrar em contato</a
         >
       </div>
     </div>

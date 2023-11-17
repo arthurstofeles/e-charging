@@ -24,15 +24,19 @@ export default {
     links: [
       {
         title: "Início",
-        ancor: "#",
+        ancor: "#inicio",
       },
       {
         title: "Como Funciona",
-        ancor: "#",
+        ancor: "#como-funciona",
+      },
+            {
+        title: "Contato",
+        ancor: "#contato",
       },
       {
         title: "Quem Somos",
-        ancor: "#",
+        ancor: "#quem-somos",
       },
     ],
     topOfPage: true,

@@ -69,7 +69,7 @@ export default {
   name: "MediasView",
   components: {
     Bar,
-    AlertError
+    AlertError,
   },
   props: {
     chartId: {
@@ -150,16 +150,18 @@ export default {
       }
     },
     async getFaturas() {
-      this.chartData.labels = []
-      this.chartData.datasets[0].data = []
+      this.chartData.labels = [];
+      this.chartData.datasets[0].data = [];
       this.loading = true;
       try {
         await faturas(this.installation).then((resp) => {
           this.faturas = resp;
-          this.faturas.forEach(item => {
-            this.chartData.labels.push(this.getMes(item.due_date))
-            this.chartData.datasets[0].data.push(item.price)
-          })
+          this.faturas.forEach((item) => {
+            this.chartData.labels.push(this.getMes(item.due_date));
+            this.chartData.datasets[0].data.push(
+              +item.measurement.value - item.measurement.last_consumed
+            );
+          });
           this.loading = false;
         });
       } catch (err) {
@@ -219,4 +221,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+header {
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  h1 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+}
+</style>

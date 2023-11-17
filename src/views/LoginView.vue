@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="pa-4 form">
-      <img src="@/assets/logo_echarging_branco.svg" alt="logo" />
+      <a href="/"><img src="@/assets/logo_echarging_branco.svg" alt="logo" /></a>
       <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
         <v-text-field
           class="pb-6"
@@ -118,7 +118,7 @@ export default {
   }
   .form {
     height: 100vh;
-    background-color: #1E345D;
+    background-color: #1e345d;
     display: flex;
     align-items: center;
     flex-direction: column;

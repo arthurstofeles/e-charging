@@ -27,46 +27,78 @@
     </div>
     <section v-else class="pa-8">
       <v-expansion-panels class="mb-4">
-        <v-expansion-panel class="mb-4" v-for="fatura in faturas" :key="fatura.id">
+        <v-expansion-panel
+          class="mb-4"
+          v-for="fatura in faturas"
+          :key="fatura.id"
+        >
           <v-expansion-panel-header>
             <v-row class="align-center">
-              <v-col cols="3">
+              <v-col cols="2">
                 <strong>{{ getMes(fatura.due_date) }}</strong>
               </v-col>
-              <v-col cols="3">
-                <strong>{{ formataPreco(fatura.price) }}</strong>
+              <v-col cols="2">
+                <strong class="preco">{{ formataPreco(fatura.price) }}</strong>
               </v-col>
               <v-col cols="3">
-                <small>Vencimento: {{ formataData(fatura.due_date) }}</small>
+                <small class="vencimento" >Vencimento: {{ formataData(fatura.due_date) }}</small>
               </v-col>
-              <v-col cols="3">
-                <v-chip :color="status[fatura.status].color" text-color="white">
+              <v-col cols="5">
+                <v-chip
+                  x-small
+                  block
+                  :color="status[fatura.status].color"
+                  text-color="white"
+                >
                   {{ status[fatura.status].label }}
                 </v-chip>
               </v-col>
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-4">
-            <v-row class="d-flex pa-8 justify-center align-center">
-              <v-col cols="5">
-                <p><strong>Consumo:</strong> 280.000 kwh</p>
+            <v-row class="d-flex justify-center align-center content">
+              <v-col cols="5" class="resume">
                 <p>
-                  <strong>Data das Leitura:</strong> 20/02/2023
+                  <strong>Consumo:</strong>
+                  {{
+                    +fatura.measurement.value - fatura.measurement.last_consumed
+                  }}
+                  kw
                 </p>
-                <p><strong>Dias:</strong> 30 dias</p>
-                <p><strong>Valor do Kwh:</strong> R$ 7,50</p>
+                <p>
+                  <strong>Leitura atual:</strong>
+                  {{ formataNumero(fatura.measurement.value) }} kw
+                </p>
+                <p>
+                  <strong>Data da Leitura:</strong>
+                  {{ formataData(fatura.created_at) }}
+                </p>
+                <p>
+                  <strong>Valor do Kwh:</strong>
+                  {{ formataPreco(fatura.price_kw) }}
+                </p>
+                <p>
+                  <strong>Vencimento:</strong>
+                  {{ formataData(fatura.due_date) }}
+                </p>
                 <h3>
                   <strong>Valor Total:</strong> {{ formataPreco(fatura.price) }}
                 </h3></v-col
               >
-              <v-col cols="7" class="text-center">
+              <v-col cols="7" class="text-center resume">
                 <p>Pague via Pix! Utilize o QR Code:</p>
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg/1200px-Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg.png"
-                  height="300px"
-                />
-                <v-btn v-if="fatura.file" class="mt-4" rounded dark color="#27A952" outlined :href="fatura.file" target="_blank"
-                  >Ou faça o download do boleto</v-btn
+                <img :src="fatura.qr_code" height="300px" />
+                <v-btn
+                  v-if="fatura.file"
+                  class="mt-4"
+                  rounded
+                  dark
+                  color="#27A952"
+                  outlined
+                  :href="fatura.file"
+                  target="_blank"
+                  x-small
+                  >faça o download do boleto</v-btn
                 >
               </v-col>
             </v-row>
@@ -194,8 +226,47 @@ export default {
         ano;
       return dataFormatada;
     },
+    formataNumero(num) {
+      return parseFloat(num).toLocaleString("pt-BR", {
+        minimumFractionDigits: 0,
+      });
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  h1 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+}
+.preco,
+.vencimento {
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+.content {
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-content: flex-start;
+  }
+}
+
+.resume {
+    @media screen and (max-width: 1024px) {
+    max-width: 100% !important;
+  }
+  img {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+  }
+}
+</style>

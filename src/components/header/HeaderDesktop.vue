@@ -18,9 +18,10 @@
           <li>
             <v-btn
               rounded
-              class="px-8"
+              class="px-8 white--text"
               color="#1E345D"
               dark
+              to="/login"
               >Área de Cliente</v-btn
             >
           </li>
