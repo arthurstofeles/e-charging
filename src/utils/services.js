@@ -15,3 +15,9 @@ export const faturas = async (id) => {
   const { data } = await apiInstance.get(ENDPOINTS.FATURAS + '?installation=' + id);
   return data;
 };
+
+export const lead = async (payload) => {
+  const { data } = await apiInstance.post(ENDPOINTS.LEAD, payload);
+  return data;
+};
+

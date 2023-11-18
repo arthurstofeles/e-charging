@@ -2,5 +2,6 @@ export const ENDPOINTS = {
   LOGIN: "login/",
   USERS: "users/",
   INSTALLATIONS: "installations/",
-  FATURAS: 'faturas/'
+  FATURAS: "faturas/",
+  LEAD: "lead/",
 };

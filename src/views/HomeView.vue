@@ -1,11 +1,23 @@
 <template>
   <div class="home">
     <HeaderLayout />
-        <BannerHome id="inicio" />
+    <BannerHome id="inicio" />
     <ComoFuncionaHome id="como-funciona" />
-    <ContatoHome id="contato" />
+    <ContatoHome
+      id="contato"
+      @contato="contato"
+      :loading="loadingBtn"
+      :sucess="sucess"
+    />
     <QuemSomosHome id="quem-somos" />
     <FooterHome />
+    <AlertSuccess
+      :dialog="sucess"
+      :dialogMessage="message"
+      dialogTextButton="OK"
+      @close="sucess = false"
+    />
+    <AlertError :alertError="error" :messageError="message" />
   </div>
 </template>
 
@@ -16,16 +28,43 @@ import QuemSomosHome from "../components/home/QuemSomosHome.vue";
 import ComoFuncionaHome from "../components/home/ComoFuncionaHome.vue";
 import ContatoHome from "../components/home/ContatoHome.vue";
 import HeaderLayout from "../layouts/HeaderLayout";
+import AlertSuccess from "@/components/custom/AlertSuccess";
+import AlertError from "@/components/custom/AlertError";
+import { lead } from "../utils/services";
 export default {
   name: "HomeView",
-  data: () => ({}),
   components: {
     HeaderLayout,
     ContatoHome,
     ComoFuncionaHome,
     QuemSomosHome,
     FooterHome,
-    BannerHome
+    BannerHome,
+    AlertSuccess,
+    AlertError,
+  },
+  data: () => ({
+    sucess: false,
+    error: false,
+    message: "",
+    loadingBtn: false,
+  }),
+  methods: {
+    async contato(e) {
+      this.error = false;
+      this.loadingBtn = true;
+      try {
+        await lead(e).then(() => {
+          this.loadingBtn = false;
+          this.message = "Solicitação de contato enviada!";
+          this.sucess = true;
+        });
+      } catch (e) {
+        this.loadingBtn = false;
+        this.message = "Ocorreu um erro inesperado";
+        this.error = true;
+      }
+    },
   },
 };
 </script>
