@@ -41,7 +41,9 @@
                 <strong class="preco">{{ formataPreco(fatura.price) }}</strong>
               </v-col>
               <v-col cols="3">
-                <small class="vencimento" >Vencimento: {{ formataData(fatura.due_date) }}</small>
+                <small class="vencimento"
+                  >Vencimento: {{ formataData(fatura.due_date) }}</small
+                >
               </v-col>
               <v-col cols="5">
                 <v-chip
@@ -86,11 +88,15 @@
                 </h3></v-col
               >
               <v-col cols="7" class="text-center resume">
-                <p>Pague via Pix! Utilize o QR Code:</p>
-                <img :src="fatura.qr_code" height="300px" />
+                <p v-if="fatura.qr_code">Pague via Pix! Utilize o QR Code:</p>
+                <img
+                  v-if="fatura.qr_code"
+                  :src="fatura.qr_code"
+                  height="300px"
+                />
                 <v-btn
                   v-if="fatura.file"
-                  class="mt-4"
+                  class="mt-4 mx-auto"
                   rounded
                   dark
                   color="#27A952"
@@ -260,13 +266,17 @@ header {
 }
 
 .resume {
-    @media screen and (max-width: 1024px) {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  @media screen and (max-width: 1024px) {
     max-width: 100% !important;
   }
   img {
     max-width: 280px;
     width: 100%;
     height: auto;
+    margin: 0 auto;
   }
 }
 </style>

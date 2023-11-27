@@ -14,41 +14,28 @@
           <div class="time">
             <div class="perfil">
               <img
-                src="https://images.pexels.com/photos/806835/pexels-photo-806835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src="@/assets/roberto.jpeg"
                 alt="ALEXANDRE-PELINSON.png"
               />
               <div class="about">
-                <h3>Elena Silva</h3>
+                <h3>Roberto Jr <a href="http://linkedin.com/in/roberto-junior-3aa190106" target="_blank" rel="noopener noreferrer"> <v-icon color="#0e76a8">mdi-linkedin </v-icon> </a></h3>
                 <p>
-                  Visionária e empreendedora apaixonada por inovações
-                  sustentáveis, fundou a empresa com o objetivo de transformar a
-                  paisagem da mobilidade elétrica. Com uma formação sólida em
-                  engenharia elétrica e uma visão centrada no futuro, Elena
-                  lidera a equipe rumo a soluções revolucionárias. Sua dedicação
-                  à sustentabilidade e ao avanço tecnológico impulsiona a
-                  empresa a criar sistemas de carregamento por indução que não
-                  apenas atendem às necessidades atuais, mas também moldam o
-                  caminho para um amanhã mais limpo e eficiente.
+                  Eng. Eletricista Mestre e Doutor Eng. de Produção, Pós
+                  doutorado em Otimização Licenciado em Matemática e Física.
                 </p>
               </div>
             </div>
             <div class="perfil">
               <img
-                src="https://images.pexels.com/photos/806835/pexels-photo-806835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src="@/assets/beatriz.jpeg"
                 alt="ALEXANDRE-PELINSON.png"
               />
               <div class="about">
-                <h3>Elena Silva</h3>
+                <h3>Beatriz Fajardo <a href="https://www.linkedin.com/in/beatriz-fajardo-5695b4183?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer"> <v-icon color="#0e76a8">mdi-linkedin </v-icon> </a></h3>
                 <p>
-                  Visionária e empreendedora apaixonada por inovações
-                  sustentáveis, fundou a empresa com o objetivo de transformar a
-                  paisagem da mobilidade elétrica. Com uma formação sólida em
-                  engenharia elétrica e uma visão centrada no futuro, Elena
-                  lidera a equipe rumo a soluções revolucionárias. Sua dedicação
-                  à sustentabilidade e ao avanço tecnológico impulsiona a
-                  empresa a criar sistemas de carregamento por indução que não
-                  apenas atendem às necessidades atuais, mas também moldam o
-                  caminho para um amanhã mais limpo e eficiente.
+                  Sou mestre em Engenharia Civil (COPPE/UFRJ), possuo MBA
+                  Executivo em Administraçao: Negocios do Setor Eletrico (FGV),
+                  Pos-graduaçao em Gestao e Projetos em BIM ( PUC)
                 </p>
               </div>
             </div>
@@ -120,14 +107,15 @@ export default {
       align-items: flex-start;
       justify-content: flex-start;
       gap: 32px;
-          @media screen and (max-width: 768px) {
-      flex-direction: column;
-    }
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+      }
       img {
         max-height: 150px;
         max-width: 150px;
         border-radius: 50%;
         object-fit: cover;
+        border: 3px solid #1e345d;
       }
       .about {
         padding: 16px;
