@@ -64,8 +64,8 @@ export default {
     valid: true,
     error: false,
     form: {
-      username: "teste@teste.com",
-      password: "senha1234",
+      username: "",
+      password: "",
     },
     showPassword: false,
     loading: false,
